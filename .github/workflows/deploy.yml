@@ -16,8 +16,6 @@ jobs:
 
     timeout-minutes: 5
 
-    needs: test
-
     permissions:
       contents: read
       packages: write
