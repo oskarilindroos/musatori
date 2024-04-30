@@ -1,4 +1,4 @@
-# musatori
+# musatori - 無悟り
 
 > A React/Express Full-Stack online marketplace for music equipment.
 
