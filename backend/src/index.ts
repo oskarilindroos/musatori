@@ -1,11 +1,28 @@
 import express from "express";
+import { migrateToLatest } from "./db/migrator.ts";
+import { db } from "./db/db.ts";
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/api/health", (req, res) => {
+await migrateToLatest();
+
+app.get("/api/health", (_, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/api/users", async (_, res) => {
+  const users = await db.selectFrom("users").selectAll().execute();
+  res.json(users);
+});
+
+app.get("/api/listings/categories", async (_, res) => {
+  const categories = await db
+    .selectFrom("listings_categories")
+    .selectAll()
+    .execute();
+  res.json(categories);
 });
 
 app.listen(PORT, () => {
