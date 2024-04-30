@@ -1,6 +1,6 @@
 import express from "express";
-import { migrateToLatest } from "./db/migrator.ts";
-import { db } from "./db/db.ts";
+import { migrateToLatest } from "./db/migrator.js";
+import { db } from "./db/db.js";
 
 const app = express();
 
