@@ -1,4 +1,4 @@
-import { Database } from "../types/db.type.ts";
+import { Database } from "../types/db.type.js";
 import SQLite from "better-sqlite3";
 import { Kysely, SqliteDialect } from "kysely";
 

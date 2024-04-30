@@ -1,6 +1,6 @@
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { db } from "./db.ts";
+import { db } from "./db.js";
 import { promises as fs } from "fs";
 import { Migrator, FileMigrationProvider } from "kysely";
 
