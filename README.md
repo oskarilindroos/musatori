@@ -18,7 +18,8 @@ Deployed at [https://musatori.onrender.com/](https://musatori.onrender.com/)
 - Node
 - TypeScript
 - Express
-- MySQL
+- Kysely
+- Sqlite3
 
 ## CI/CD
 
@@ -29,4 +30,4 @@ Deployed at [https://musatori.onrender.com/](https://musatori.onrender.com/)
 
 - Frontend: Render Web Service
 - Backend: Render Web Service
-- Database: TBD
+- Database: Lives in the backend container as an .sqlite file
