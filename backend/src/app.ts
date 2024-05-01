@@ -1,17 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import dotenv from "dotenv";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
-
-// Load environment variables
-dotenv.config();
-
-console.log("Environment:", process.env.NODE_ENV);
 
 // Request body parser middleware
 app.use(express.json());
