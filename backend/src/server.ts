@@ -1,11 +1,30 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
+import dotenv from "dotenv";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
 
 const app = express();
+
+// Load environment variables
+dotenv.config();
+
+// Request body parser middleware
 app.use(express.json());
+
+// Logger middleware
 app.use(morgan("dev"));
+
+// Cors middleware
+const origins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",")
+  : [];
+app.use(
+  cors({
+    origin: origins,
+  }),
+);
 
 const PORT = process.env.PORT || 5000;
 
@@ -24,5 +43,6 @@ app.get("/api/health", (_, res) => {
 app.use("/api/users", usersRouter);
 
 app.listen(PORT, () => {
+  console.log("Environment:", process.env.NODE_ENV);
   console.log(`Server is running on port ${PORT}`);
 });
