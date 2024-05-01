@@ -1,5 +1,6 @@
 import express from "express";
 import { migrateToLatest } from "./db/migrator.js";
+import { usersRouter } from "./users/users.router.js";
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.get("/api/health", (_, res) => {
   res.json({ status: "ok" });
 });
 
+app.use("/api/users", usersRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
