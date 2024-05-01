@@ -13,7 +13,7 @@ export interface UsersTable {
   username: string;
   email: string;
   password: string;
-  admin: boolean;
+  admin: boolean | null;
   created_at: Generated<string>;
 }
 
