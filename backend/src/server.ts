@@ -9,7 +9,11 @@ const app = express();
 
 // Load environment variables
 dotenv.config();
+
+// Request body parser middleware
 app.use(express.json());
+
+// Logger middleware
 app.use(morgan("dev"));
 
 // Cors middleware
