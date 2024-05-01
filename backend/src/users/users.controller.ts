@@ -64,7 +64,18 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
-  //TODO:  Logic to login a user
+  try {
+    const token = await usersService.login(
+      req.body.username,
+      req.body.password,
+    );
+
+    res.json({ token: token });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return next(error);
+    }
+  }
 };
 
 export const usersController = {

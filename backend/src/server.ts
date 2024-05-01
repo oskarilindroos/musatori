@@ -43,6 +43,13 @@ app.get("/api/health", (_, res) => {
 
 app.use("/api/users", usersRouter);
 
+// For all other routes, return 404
+app.use((_req, res, next) => {
+  const error = new Error("Route not found");
+  res.status(404);
+  next(error);
+});
+
 // Error handler middleware
 app.use(errorHandler);
 
