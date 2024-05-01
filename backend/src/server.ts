@@ -1,9 +1,13 @@
 import express from "express";
 import morgan from "morgan";
+import dotenv from "dotenv";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
 
 const app = express();
+
+// Load environment variables
+dotenv.config();
 app.use(express.json());
 app.use(morgan("dev"));
 
