@@ -23,6 +23,11 @@ const getUserById = async (userId: string) => {
 
 const updateUser = async (userId: string, updatedUser: UpdatedUser) => {
   try {
+    const userExists = await usersRepository.getUserById(userId);
+    if (!userExists) {
+      throw new Error("User not found");
+    }
+
     const user = await usersRepository.updateUser(userId, updatedUser);
     return user;
   } catch (error) {

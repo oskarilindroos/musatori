@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
@@ -41,6 +42,9 @@ app.get("/api/health", (_, res) => {
 });
 
 app.use("/api/users", usersRouter);
+
+// Error handler middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log("Environment:", process.env.NODE_ENV);

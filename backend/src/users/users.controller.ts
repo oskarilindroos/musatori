@@ -1,33 +1,39 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { usersService } from "./users.service.js";
 
-const getAllUsers = async (_req: Request, res: Response) => {
+const getAllUsers = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const users = await usersService.getAllUsers();
+
     res.json(users);
-  } catch (error: any) {
-    console.log(error.message);
-    res.status(500).json({ message: error });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return next(error);
+    }
   }
 };
 
-const getUserById = async (req: Request, res: Response) => {
+const getUserById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await usersService.getUserById(req.params.userId);
 
     if (!user) {
-      res.status(404).json({ message: "User not found" });
-      return;
+      throw new Error("User not found");
     }
 
     res.json(user);
-  } catch (error: any) {
-    console.log(error.message);
-    res.status(500).json({ message: error });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return next(error);
+    }
   }
 };
 
-const updateUser = async (req: Request, res: Response) => {
+const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const updatedUser = await usersService.updateUser(
       req.params.userId,
@@ -35,13 +41,14 @@ const updateUser = async (req: Request, res: Response) => {
     );
 
     res.json(updatedUser);
-  } catch (error: any) {
-    console.log(error.message);
-    res.status(400).json({ message: error });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return next(error);
+    }
   }
 };
 
-const signup = async (req: Request, res: Response) => {
+const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newUser = await usersService.signup(
       req.body.username,
@@ -49,13 +56,14 @@ const signup = async (req: Request, res: Response) => {
     );
 
     res.status(201).json(newUser);
-  } catch (error: any) {
-    console.log(error.message);
-    res.status(400).json({ message: error });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return next(error);
+    }
   }
 };
 
-const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response, next: NextFunction) => {
   //TODO:  Logic to login a user
 };
 
