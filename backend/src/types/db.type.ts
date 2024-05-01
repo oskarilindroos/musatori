@@ -11,7 +11,6 @@ export interface Database {
 export interface UsersTable {
   id: string;
   username: string;
-  email: string;
   password: string;
   admin: boolean | null;
   created_at: Generated<string>;
