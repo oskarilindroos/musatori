@@ -14,10 +14,10 @@ export async function up(db: Kysely<any>): Promise<void> {
       col.references("users.id").onDelete("cascade").notNull(),
     )
     .addColumn("listing_type_id", "integer", (col) =>
-      col.references("listing_types.id").onDelete("cascade").notNull(),
+      col.references("listings_types.id").onDelete("cascade").notNull(),
     )
     .addColumn("listing_category_id", "integer", (col) =>
-      col.references("listing_categories.id").onDelete("cascade").notNull(),
+      col.references("listings_categories.id").onDelete("cascade").notNull(),
     )
     .addColumn("created_at", "text", (col) =>
       col.defaultTo(sql`CURRENT_TIMESTAMP`).notNull(),
