@@ -7,9 +7,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./frontend/.env:/app/.env
   backend:
     build:
       context: ./backend/
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    volumes:
+      - ./backend/.env:/app/.env
