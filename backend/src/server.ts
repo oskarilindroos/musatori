@@ -1,9 +1,11 @@
 import express from "express";
+import morgan from "morgan";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
 
 const app = express();
 app.use(express.json());
+app.use(morgan("dev"));
 
 const PORT = process.env.PORT || 5000;
 
