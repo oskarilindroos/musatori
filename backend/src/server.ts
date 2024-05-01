@@ -28,5 +28,6 @@ app.get("/api/health", (_, res) => {
 app.use("/api/users", usersRouter);
 
 app.listen(PORT, () => {
+  console.log("Environment:", process.env.NODE_ENV);
   console.log(`Server is running on port ${PORT}`);
 });
