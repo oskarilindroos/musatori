@@ -22,7 +22,7 @@ public/css/main.css
 # Coverage reports
 coverage
 
-# API keys and secrets
+# Production env file
 .env
 
 # Dependency directory
