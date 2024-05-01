@@ -41,7 +41,7 @@ const getUserByUsername = async (username: string) => {
   return await db
     .selectFrom("users")
     .where("username", "=", username)
-    .select(["id", "username", "admin", "created_at"])
+    .select(["id", "username", "admin", "password", "created_at"])
     .executeTakeFirst();
 };
 
