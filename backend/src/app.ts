@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
+import { listingsRouter } from "./listings/listings.router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { ApiError } from "./errors/ApiError.js";
 
@@ -38,6 +39,7 @@ app.get("/api/health", (_, res) => {
 });
 
 app.use("/api/users", usersRouter);
+app.use("/api/listings", listingsRouter);
 
 // For all other routes, return 404
 app.use((_req, _res, next) => {

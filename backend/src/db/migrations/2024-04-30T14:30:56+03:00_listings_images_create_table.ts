@@ -6,7 +6,9 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("id", "integer", (col) =>
       col.primaryKey().notNull().autoIncrement(),
     )
-    .addColumn("listing_id", "integer", (col) => col.references("listings.id"))
+    .addColumn("listing_id", "integer", (col) =>
+      col.references("listings.id").onDelete("cascade").notNull(),
+    )
     .addColumn("url", "text") // TODO: Add option for drag and drop image upload not just urls
     .addColumn("created_at", "text", (col) =>
       col.defaultTo(sql`CURRENT_TIMESTAMP`).notNull(),

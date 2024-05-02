@@ -7,5 +7,16 @@ export interface NewUser {
 export interface UpdatedUser {
   username: string;
   password: string;
-  admin: boolean;
+  admin: number;
+}
+
+export interface JwtUser {
+  id: string;
+  username: string;
+  admin: number;
+}
+
+export interface AuthenticatedUser extends JwtUser {
+  iat: number;
+  exp: number;
 }

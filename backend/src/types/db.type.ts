@@ -12,12 +12,12 @@ export interface UsersTable {
   id: string;
   username: string;
   password: string;
-  admin: boolean | null;
+  admin: number | null;
   created_at: Generated<string>;
 }
 
 export interface ListingsTable {
-  id: number;
+  id: Generated<number>;
   title: string;
   description: string;
   price: number | null;
@@ -29,17 +29,18 @@ export interface ListingsTable {
 }
 
 export interface ListingsCategoriesTable {
-  id: number;
+  id: Generated<number>;
   category: string;
+  description: string;
 }
 
 export interface ListingsTypesTable {
-  id: number;
+  id: Generated<number>;
   type: string;
 }
 
 export interface ListingsImagesTable {
-  id: number;
+  id: Generated<number>;
   listing_id: number;
   url: string;
 }
