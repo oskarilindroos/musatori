@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { usersRepository } from "./users.repository.js";
-import { UpdatedUser } from "../types/users.type.js";
+import { JwtUser, UpdatedUser } from "../types/users.type.js";
 import { ApiError } from "../errors/ApiError.js";
 
 const getAllUsers = async () => {
@@ -89,7 +89,13 @@ const login = async (username: string, password: string) => {
       throw new ApiError(401, "Invalid username or password");
     }
 
-    const jwtToken = createToken(user.id, user.username);
+    const jwtUser: JwtUser = {
+      id: user.id,
+      username: user.username,
+      admin: user.admin || 0,
+    };
+
+    const jwtToken = createToken(jwtUser);
     return jwtToken;
   } catch (error) {
     throw error;
@@ -108,13 +114,13 @@ const hashAndSaltPassword = async (plainTextPassword: string) => {
 
 // Creates a JWT token with the user id and username
 // NOTE: Algorithm: HS256
-const createToken = (userId: string, username: string) => {
+const createToken = (user: JwtUser) => {
   try {
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT secret is not set");
     }
 
-    return jwt.sign({ userId, username }, process.env.JWT_SECRET, {
+    return jwt.sign(user, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
   } catch (error) {
