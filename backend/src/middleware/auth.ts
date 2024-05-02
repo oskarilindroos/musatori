@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export const auth = (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   // Check if Authorization header is provided
   if (!req.header("Authorization")) {
     const error = new Error("Authorization header not provided");
