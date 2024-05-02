@@ -12,7 +12,8 @@ const app = express();
 app.use(express.json());
 
 // Logger middleware
-app.use(morgan("dev"));
+// NOTE: Skip logging during tests
+app.use(morgan("dev", { skip: () => process.env.NODE_ENV === "test" }));
 
 // Cors middleware
 const origins = process.env.CORS_ORIGIN
