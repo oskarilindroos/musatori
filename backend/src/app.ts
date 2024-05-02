@@ -4,6 +4,7 @@ import cors from "cors";
 import { migrateToLatest } from "./db/migrator.js";
 import { usersRouter } from "./users/users.router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { ApiError } from "./errors/ApiError.js";
 
 const app = express();
 
@@ -38,10 +39,8 @@ app.get("/api/health", (_, res) => {
 app.use("/api/users", usersRouter);
 
 // For all other routes, return 404
-app.use((_req, res, next) => {
-  const error = new Error("Route not found");
-  res.status(404);
-  next(error);
+app.use((_req, _res, next) => {
+  next(new ApiError(404, "Route not found"));
 });
 
 // Error handler middleware
