@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError.js";
+import { AuthenticatedUser } from "../types/users.type.js";
 
 export const verifyToken = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   // Check if Authorization header is provided
@@ -30,8 +31,9 @@ export const verifyToken = (
     // Verify the token
     const decoded = jwt.verify(token, jwtSecret);
 
-    // Set the user object in res.locals
-    res.locals.user = decoded;
+    // Attach the user to the request object
+    req.user = decoded as AuthenticatedUser;
+
     next();
   } catch (error) {
     next(new ApiError(401, "Invalid token"));
