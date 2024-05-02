@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { usersRepository } from "./users.repository.js";
 import { UpdatedUser } from "../types/users.type.js";
+import { ApiError } from "../errors/ApiError.js";
 
 const getAllUsers = async () => {
   try {
@@ -16,6 +17,10 @@ const getAllUsers = async () => {
 const getUserById = async (userId: string) => {
   try {
     const user = await usersRepository.getUserById(userId);
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
     return user;
   } catch (error) {
     throw error;
@@ -26,7 +31,7 @@ const updateUser = async (userId: string, updatedUser: UpdatedUser) => {
   try {
     const userExists = await usersRepository.getUserById(userId);
     if (!userExists) {
-      throw new Error("User not found");
+      throw new ApiError(404, "User not found");
     }
 
     const user = await usersRepository.updateUser(userId, updatedUser);
@@ -41,7 +46,7 @@ const signup = async (username: string, password: string) => {
   try {
     const user = await usersRepository.getUserByUsername(username);
     if (user) {
-      throw new Error("Username already in use");
+      throw new ApiError(409, "Username is already in use");
     }
   } catch (error) {
     throw error;
@@ -66,11 +71,7 @@ const signup = async (username: string, password: string) => {
       password: hashedPassword,
     });
 
-    return {
-      id: createdUser.id,
-      username: createdUser.username,
-      createdAt: createdUser.created_at,
-    };
+    return createdUser;
   } catch (error) {
     throw error;
   }
@@ -80,12 +81,12 @@ const login = async (username: string, password: string) => {
   try {
     const user = await usersRepository.getUserByUsername(username);
     if (!user) {
-      throw new Error("Invalid username or password");
+      throw new ApiError(401, "Invalid username or password");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new Error("Invalid username or password");
+      throw new ApiError(401, "Invalid username or password");
     }
 
     const jwtToken = createToken(user.id, user.username);

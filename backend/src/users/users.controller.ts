@@ -11,9 +11,7 @@ const getAllUsers = async (
 
     res.json(users);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return next(error);
-    }
+    return next(error);
   }
 };
 
@@ -21,15 +19,9 @@ const getUserById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await usersService.getUserById(req.params.userId);
 
-    if (!user) {
-      throw new Error("User not found");
-    }
-
     res.json(user);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return next(error);
-    }
+    return next(error);
   }
 };
 
@@ -42,9 +34,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
     res.json(updatedUser);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return next(error);
-    }
+    return next(error);
   }
 };
 
@@ -57,9 +47,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(201).json(newUser);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return next(error);
-    }
+    return next(error);
   }
 };
 
@@ -72,9 +60,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     res.json({ token: token });
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return next(error);
-    }
+    return next(error);
   }
 };
 

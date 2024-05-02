@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:5000
+@token = {{login.response.body.token}}
+@userId = {{signup.response.body.id}}
+@contentType = application/json
+
+###
+GET {{baseUrl}}/api/health
+
+###
+# @name signup
+POST {{baseUrl}}/api/users/signup
+Content-Type: {{contentType}} 
+
+{
+    "username": "restuser",
+    "password": "restpassword"
+}
+
+###
+# @name login
+POST {{baseUrl}}/api/users/login
+Content-Type: {{contentType}}
+
+{
+    "username": "restuser",
+    "password": "restpassword"
+}
+
+###
+GET {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/api/users/220f68ea-447e-4e79-a796-54a6efcc9fe1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}

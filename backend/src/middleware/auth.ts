@@ -1,11 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { ApiError } from "../errors/ApiError.js";
 
-export const auth = (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   // Check if Authorization header is provided
   if (!req.header("Authorization")) {
-    const error = new Error("Authorization header not provided");
-    res.status(401);
+    const error = new ApiError(401, "Authorization header not provided");
     return next(error);
   }
 
@@ -13,8 +17,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   // NOTE: Using schema: Bearer {token}
   const token = req.header("Authorization")?.split(" ")[1];
   if (!token) {
-    const error = new Error("Token not provided");
-    res.status(401);
+    const error = new ApiError(401, "Token not provided");
     return next(error);
   }
 
@@ -31,7 +34,6 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
     res.locals.user = decoded;
     next();
   } catch (error) {
-    res.status(400);
-    next(error);
+    next(new ApiError(401, "Invalid token"));
   }
 };
