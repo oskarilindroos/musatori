@@ -42,6 +42,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create frontend production .env from secret
+        run: echo "${{ secrets.FRONTEND_ENV_PROD }}" > ./frontend/.env
+
+      - name: Create backend production .env from secret
+        run: echo "${{ secrets.BACKEND_ENV_PROD }}" > ./backend/.env
+
       - name: Build the Backend Image
         uses: docker/build-push-action@v5.0.0
         with:
@@ -54,7 +60,6 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./frontend
-          build-args: VITE_API_URL="${{ secrets.VITE_API_URL}}"
           file: ./frontend/Dockerfile
           push: true
           tags: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}"
