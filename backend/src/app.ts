@@ -6,6 +6,7 @@ import { usersRouter } from "./users/users.router.js";
 import { listingsRouter } from "./listings/listings.router.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { ApiError } from "./errors/ApiError.js";
+import { seedTestData } from "./db/seedTestData.js";
 
 const app = express();
 
@@ -32,6 +33,16 @@ try {
 } catch (error) {
   console.error("Error while migrating database", error);
   process.exit(1);
+}
+
+// Seed db with test data if not in test environment
+// NOTE: This is done for now even in production just to have some data to work with in the frontend
+if (process.env.NODE_ENV !== "test") {
+  try {
+    await seedTestData();
+  } catch (error) {
+    console.error("Error while seeding test data", error);
+  }
 }
 
 app.get("/api/health", (_, res) => {

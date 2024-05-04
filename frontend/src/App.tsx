@@ -1,10 +1,11 @@
-import { Alert, Snackbar, ThemeProvider } from "@mui/material";
+import { Alert, CssBaseline, Snackbar, ThemeProvider } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 import ListingsPage from "./pages/ListingsPage";
 import { checkHealth } from "./services/checkHealth";
 import { musatoriTheme } from "./themes/musatoriTheme";
+import ErrorAlert from "./components/ErrorAlert";
 
 const router = createBrowserRouter([
   {
@@ -42,12 +43,9 @@ const App = () => {
   return (
     <ThemeProvider theme={musatoriTheme}>
       <RouterProvider router={router} />
+      <CssBaseline />
 
-      {isError && (
-        <Snackbar open={true}>
-          <Alert severity="error">{error.message}</Alert>
-        </Snackbar>
-      )}
+      {isError && ErrorAlert({ error })}
       {isPending && (
         <Snackbar open={true}>
           <Alert severity="info">Connecting to server...</Alert>

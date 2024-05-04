@@ -134,4 +134,5 @@ export const usersService = {
   updateUser,
   signup,
   login,
+  hashAndSaltPassword,
 };

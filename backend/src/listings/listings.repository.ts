@@ -53,6 +53,7 @@ const getAllListings = async () => {
       "listings.created_at",
       "listings_images.url as image_url",
     ])
+    .groupBy("listings.id")
     .orderBy("listings.created_at", "desc")
     .execute();
 };

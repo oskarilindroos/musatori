@@ -4,10 +4,14 @@ export const musatoriTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#f5f5f5",
+      main: "#E5EDE6",
+    },
+    background: {
+      default: "#E5EDE6",
+      paper: "#D2DDD3",
     },
     secondary: {
-      main: "#8b7b74",
+      main: "#D2DDD3",
     },
   },
 });
