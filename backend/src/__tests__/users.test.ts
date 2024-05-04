@@ -91,6 +91,7 @@ describe("POST /api/users/login", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
+      user: expect.any(Object),
       token: expect.any(String),
     });
     expect(response.type).toBe("application/json");
