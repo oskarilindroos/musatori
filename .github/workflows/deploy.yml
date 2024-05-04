@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
-      - run: curl "${{secrets.RENDER_DEPLOY_HOOK}}"
+      - run: curl "${{secrets.RENDER_FRONTEND_DEPLOY_HOOK}}"
 
   # TODO: Fix docker container deployment below
   # deploy-frontend-to-render
