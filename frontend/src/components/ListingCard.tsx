@@ -18,7 +18,7 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ border: 1, boxShadow: 4 }}>
       <CardActionArea onClick={handleClick}>
         <CardMedia
           component="img"
