@@ -78,7 +78,6 @@ jobs:
           wait_deploy: true
 
   deploy-frontend-to-render:
-    needs: [build-and-push-image]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
