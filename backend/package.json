@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node --env-file .env.test --experimental-vm-modules ./node_modules/.bin/jest",
-    "start": "node ./dist/server.js",
+    "start": "node --env-file .env ./dist/server.js",
     "dev": "tsx --env-file .env.development --watch src/server.ts",
     "build": "tsc"
   },

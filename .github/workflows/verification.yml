@@ -85,6 +85,5 @@ jobs:
         with:
           context: ./frontend
           file: ./frontend/Dockerfile
-          build-args: VITE_API_URL="${{ secrets.VITE_API_URL}}"
           push: false
           tags: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}"
