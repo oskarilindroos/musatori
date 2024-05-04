@@ -95,8 +95,11 @@ const login = async (username: string, password: string) => {
       admin: user.admin || 0,
     };
 
+    // Create a JWT token
     const jwtToken = createToken(jwtUser);
-    return jwtToken;
+
+    // Return the user and token
+    return { user: jwtUser, token: jwtToken };
   } catch (error) {
     throw error;
   }

@@ -53,12 +53,12 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = await usersService.login(
+    const response = await usersService.login(
       req.body.username,
       req.body.password,
     );
 
-    res.json({ token: token });
+    res.json(response);
   } catch (error: unknown) {
     return next(error);
   }
