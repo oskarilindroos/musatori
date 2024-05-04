@@ -33,7 +33,7 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
               {listing.title}
             </Box>
           </Typography>
-          <Typography gutterBottom textOverflow={"ellipsis"} variant="body2">
+          <Typography gutterBottom noWrap variant="body2">
             {listing.description}
           </Typography>
           <Typography color={"gray"} gutterBottom variant="body2">
