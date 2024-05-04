@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { PianoOutlined } from "@mui/icons-material";
 import { useState, MouseEvent, useContext, Fragment } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const ResponsiveAppBar = () => {
