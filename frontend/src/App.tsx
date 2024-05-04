@@ -1,20 +1,59 @@
+import { Alert, Snackbar, ThemeProvider } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import RootLayout from "./components/RootLayout";
+import ListingsPage from "./pages/ListingsPage";
 import { checkHealth } from "./services/checkHealth";
+import { musatoriTheme } from "./themes/musatoriTheme";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <h1>404 Not Found</h1>, // TODO: Add a 404 page
+    children: [
+      {
+        path: "/",
+        element: <ListingsPage />,
+      },
+      {
+        path: "/listings",
+        element: <ListingsPage />,
+      },
+      {
+        path: "/listings/:id",
+        element: <h1>/listings/:id</h1>,
+      },
+      {
+        path: "/users/:id/listings",
+        element: <h1>/users/:id/listings</h1>,
+      },
+    ],
+  },
+]);
 
 const App = () => {
+  // Check the health of the API
   const { isPending, isError, error } = useQuery({
     queryKey: ["apiHealth"],
     queryFn: checkHealth,
   });
 
-  if (isPending) return <h1>Connecting to the server...</h1>;
-
-  if (isError) return <h1>Error: {error.message}</h1>;
-
   return (
-    <div>
-      <h1>Musatori</h1>
-    </div>
+    <ThemeProvider theme={musatoriTheme}>
+      <RouterProvider router={router} />
+
+      {isError && (
+        <Snackbar open={true}>
+          <Alert severity="error">{error.message}</Alert>
+        </Snackbar>
+      )}
+      {isPending && (
+        <Snackbar open={true}>
+          <Alert severity="info">Connecting to server...</Alert>
+        </Snackbar>
+      )}
+    </ThemeProvider>
   );
 };
 
