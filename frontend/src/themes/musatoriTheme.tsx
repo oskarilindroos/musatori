@@ -5,6 +5,7 @@ export const musatoriTheme = createTheme({
     mode: "light",
     primary: {
       main: "#E5EDE6",
+      contrastText: "#000000",
     },
     background: {
       default: "#E5EDE6",

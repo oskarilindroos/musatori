@@ -1,11 +1,13 @@
-import { Alert, CssBaseline, Snackbar, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
+import UserProvider from "./contexts/UserContext";
+import AuthPage from "./pages/AuthPage";
 import ListingsPage from "./pages/ListingsPage";
 import { checkHealth } from "./services/checkHealth";
 import { musatoriTheme } from "./themes/musatoriTheme";
-import ErrorAlert from "./components/ErrorAlert";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
         element: <h1>/listings/:id</h1>,
       },
       {
+        path: "/auth",
+        element: <AuthPage />,
+      },
+      {
         path: "/users/:id/listings",
         element: <h1>/users/:id/listings</h1>,
       },
@@ -42,15 +48,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={musatoriTheme}>
-      <RouterProvider router={router} />
-      <CssBaseline />
-
-      {isError && ErrorAlert({ error })}
-      {isPending && (
-        <Snackbar open={true}>
-          <Alert severity="info">Connecting to server...</Alert>
-        </Snackbar>
-      )}
+      <UserProvider>
+        <RouterProvider router={router} />
+        <CssBaseline />
+        {isError && toast.error(error.message)}
+        {isPending && toast.loading("Testing connection to server...")}
+      </UserProvider>
     </ThemeProvider>
   );
 };
