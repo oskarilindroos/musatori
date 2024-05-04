@@ -82,9 +82,17 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
-      - uses: JorgeLNJunior/render-deploy@v1.4.4
-        with:
-          service_id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          wait_deploy: true
+      - run: curl "${{secrets.RENDER_DEPLOY_HOOK}}"
+
+  # TODO: Fix docker container deployment below
+  # deploy-frontend-to-render
+  #   needs: [build-and-push-image]
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: JorgeLNJunior/render-deploy@v1.4.4
+  #       with:
+  #         service_id: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+  #         api_key: ${{ secrets.RENDER_API_KEY }}
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         wait_deploy: true
