@@ -32,7 +32,7 @@ const AuthPage = () => {
       // Redirect to the home page
       navigate("/");
 
-      toast.success("Logged in successfully.");
+      toast.success("Logged in");
     } catch (error) {
       console.error(error);
       toast.error("Failed to log in.");
@@ -44,7 +44,7 @@ const AuthPage = () => {
       const response = await usersService.signUp(username, password);
       console.log(response);
 
-      toast.success("Signed up successfully.");
+      toast.success("Signed up successfully");
 
       // Automatically log in the user after signing up
       // handleLogin(username, password);

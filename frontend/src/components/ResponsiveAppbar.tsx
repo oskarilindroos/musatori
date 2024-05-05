@@ -34,7 +34,7 @@ const ResponsiveAppBar = () => {
     // Log out the user in the context
     userContext.logout();
 
-    toast.success("Logged out successfully.");
+    toast.success("Logged out");
   };
 
   const handleNavigateToMyListings = () => {
