@@ -16,7 +16,6 @@ const getListingById = async (id: string) => {
 };
 
 const postListing = async (listing: NewListing) => {
-  console.log(listing);
   return (
     await axios.post<Listing>("/api/listings", listing, {
       headers: {
@@ -24,6 +23,20 @@ const postListing = async (listing: NewListing) => {
       },
     })
   ).data;
+};
+
+const deleteListing = async ({
+  listingId,
+  token,
+}: {
+  listingId: number;
+  token: string;
+}) => {
+  return await axios.delete(`/api/listings/${listingId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 const getAllCategories = async () => {
@@ -39,5 +52,6 @@ export const listingsService = {
   getListingById,
   getAllCategories,
   getAllTypes,
+  deleteListing,
   postListing,
 };
