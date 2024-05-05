@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AuthUser, User } from "../types/users";
+import { Listing } from "../types/listings";
 
 const signUp = async (
   email: string,
@@ -96,9 +97,26 @@ const getUserById = async (
   }
 };
 
+const getUserListings = async ({
+  userId,
+  token,
+}: {
+  userId: string;
+  token: string;
+}) => {
+  return (
+    await axios.get<Listing[]>(`/api/users/${userId}/listings`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).data;
+};
+
 export const usersService = {
   signUp,
   login,
   getAllUsers,
   getUserById,
+  getUserListings,
 };
