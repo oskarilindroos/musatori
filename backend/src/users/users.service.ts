@@ -107,6 +107,15 @@ const login = async (username: string, password: string) => {
   }
 };
 
+const getUserListings = async (userId: string) => {
+  try {
+    const listings = await usersRepository.getUserListings(userId);
+    return listings;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Hashes and salts a plain text password
 const hashAndSaltPassword = async (plainTextPassword: string) => {
   try {
@@ -137,6 +146,7 @@ export const usersService = {
   getAllUsers,
   getUserById,
   updateUser,
+  getUserListings,
   signup,
   login,
   hashAndSaltPassword,
