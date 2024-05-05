@@ -1,6 +1,7 @@
 export interface NewUserRequest {
   username: string;
   password: string;
+  email: string;
 }
 
 export interface User {
@@ -14,6 +15,7 @@ export interface LoginResponse {
   user: {
     id: string;
     username: string;
+    email: string;
     admin: number;
   };
   token: string;
@@ -22,6 +24,7 @@ export interface LoginResponse {
 export interface AuthUser {
   isLoggedIn: boolean;
   isAdmin: boolean;
+  email: string;
   userId: string;
   userName: string;
   token: string;
