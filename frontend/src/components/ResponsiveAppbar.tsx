@@ -71,7 +71,12 @@ const ResponsiveAppBar = () => {
                 Musatori
               </Typography>
             </Box>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box>
+              <Typography variant="body1">
+                {userContext.user.userName}
+              </Typography>
+            </Box>
+            <Box sx={{ flexGrow: 0 }} pl={2}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   sx={{ border: 2, borderColor: "black" }}
@@ -94,7 +99,7 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleNavigateToMyListings}>
+                <MenuItem divider onClick={handleNavigateToMyListings}>
                   <Typography textAlign="center">My listings</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
