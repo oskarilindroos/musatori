@@ -24,7 +24,7 @@ const initialUser: AuthUser = {
 };
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<AuthUser | null>(initialUser);
+  const [user, setUser] = useState<AuthUser>(initialUser);
 
   const login = (user: AuthUser) => {
     setUser(user);
