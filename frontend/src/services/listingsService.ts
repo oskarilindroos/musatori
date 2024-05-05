@@ -1,24 +1,15 @@
 import axios from "axios";
-import { Listing } from "../types/listings";
+import { Listing, ListingDetails } from "../types/listings";
 
-export const getAllListings = async () => {
-  try {
-    const response = await axios.get("/api/listings");
-    const listings: Listing[] = response.data;
-    return listings;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch listings.");
-  }
+const getAllListings = async () => {
+  return (await axios.get<Listing[]>("/api/listings")).data;
 };
 
-export const getListingById = async (id: number) => {
-  try {
-    const response = await axios.get(`/api/listings/${id}`);
-    const listing: Listing = response.data;
-    return listing;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch listing.");
-  }
+const getListingById = async (id: string) => {
+  return (await axios.get<ListingDetails>(`/api/listings/${id}`)).data;
+};
+
+export const listingsService = {
+  getAllListings,
+  getListingById,
 };
