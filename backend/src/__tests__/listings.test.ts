@@ -1,6 +1,5 @@
 import request from "supertest";
 import { app } from "../app.js";
-import jest from "jest";
 
 // JWT token to be used in the tests
 let token = "";
@@ -19,6 +18,7 @@ const exampleListing = {
 beforeAll(async () => {
   // Create a new test user
   const signUpResponse = await request(app).post("/api/users/signup").send({
+    email: "testuser@gmail.com",
     username: "testuser",
     password: "testpassword",
   });
