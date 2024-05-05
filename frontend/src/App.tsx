@@ -6,6 +6,7 @@ import AuthPage from "./pages/AuthPage";
 import ListingsPage from "./pages/ListingsPage";
 import { musatoriTheme } from "./themes/musatoriTheme";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
+import ListingFormPage from "./pages/ListingFormPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <AuthPage />,
+      },
+      {
+        path: "/listings/form",
+        element: <ListingFormPage />,
       },
       {
         path: "/users/:id/listings",
