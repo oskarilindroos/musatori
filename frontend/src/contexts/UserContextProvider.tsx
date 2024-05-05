@@ -19,19 +19,25 @@ export const UserContext = createContext<IUserContext>({
   logout: () => {},
 });
 
+const getUserFromLocalStorage = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  return user;
+};
+
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<AuthUser>(initialUser);
+  const [user, setUser] = useState<AuthUser>(getUserFromLocalStorage);
 
   const login = (user: AuthUser) => {
     setUser(user);
 
-    localStorage.setItem("token", user.token);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const logout = () => {
     setUser(initialUser);
 
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (
