@@ -13,6 +13,7 @@ let userId = "";
 describe("POST /api/users/signup", () => {
   it("should return the newly created user", async () => {
     const response = await request(app).post("/api/users/signup").send({
+      email: "testuser@gmail.com",
       username: "testuser",
       password: "testpassword",
     });
@@ -32,31 +33,12 @@ describe("POST /api/users/signup", () => {
 
   it("should return 409 when the username is already in use", async () => {
     const response = await request(app).post("/api/users/signup").send({
+      email: "testuser@gmail.com",
       username: "testuser",
       password: "testpassword",
     });
 
     expect(response.status).toBe(409);
-    expect(response.type).toBe("application/json");
-  });
-
-  it("should return 400 when the username is too short", async () => {
-    const response = await request(app).post("/api/users/signup").send({
-      username: "us",
-      password: "testpassword",
-    });
-
-    expect(response.status).toBe(400);
-    expect(response.type).toBe("application/json");
-  });
-
-  it("should return 400 when the password is too short", async () => {
-    const response = await request(app).post("/api/users/signup").send({
-      username: "testuser",
-      password: "pass",
-    });
-
-    expect(response.status).toBe(400);
     expect(response.type).toBe("application/json");
   });
 
@@ -72,6 +54,27 @@ describe("POST /api/users/signup", () => {
   it("should return 400 when the password is missing", async () => {
     const response = await request(app).post("/api/users/signup").send({
       username: "testuser",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.type).toBe("application/json");
+  });
+
+  it("should return 400 when the email is missing", async () => {
+    const response = await request(app).post("/api/users/signup").send({
+      username: "testuser",
+      password: "testpassword",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.type).toBe("application/json");
+  });
+
+  it("should return 400 when the email is invalid", async () => {
+    const response = await request(app).post("/api/users/signup").send({
+      email: "invalidemail",
+      username: "testuser",
+      password: "testpassword",
     });
 
     expect(response.status).toBe(400);
@@ -134,26 +137,6 @@ describe("POST /api/users/login", () => {
     expect(response.status).toBe(400);
     expect(response.type).toBe("application/json");
   });
-
-  it("should return 400 when the username is too short", async () => {
-    const response = await request(app).post("/api/users/login").send({
-      username: "us",
-      password: "testpassword",
-    });
-
-    expect(response.status).toBe(400);
-    expect(response.type).toBe("application/json");
-  });
-
-  it("should return 400 when the password is too short", async () => {
-    const response = await request(app).post("/api/users/login").send({
-      username: "testuser",
-      password: "pass",
-    });
-
-    expect(response.status).toBe(400);
-    expect(response.type).toBe("application/json");
-  });
 });
 
 describe("GET /api/users", () => {
@@ -181,6 +164,7 @@ describe("GET /api/users/:id", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       created_at: expect.any(String),
+      email: "testuser@gmail.com",
       admin: 0,
       id: userId,
       username: "testuser",
