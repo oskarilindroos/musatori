@@ -2,11 +2,13 @@ import axios from "axios";
 import { AuthUser, User } from "../types/users";
 
 const signUp = async (
+  email: string,
   username: string,
   password: string,
 ): Promise<string | User> => {
   try {
     const response = await axios.post("/api/users/signup", {
+      email,
       username,
       password,
     });
@@ -39,6 +41,7 @@ const login = async (
     const authUser: AuthUser = {
       isLoggedIn: true,
       isAdmin: Boolean(user.admin),
+      email: user.email,
       userId: user.id,
       userName: user.username,
       token: token,
