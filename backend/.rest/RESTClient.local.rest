@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:5000
 @token = {{login.response.body.token}}
-@userId = {{signup.response.body.id}}
+@userId = {{login.response.body.user.id}}
 @contentType = application/json
 
 ###
@@ -12,6 +12,7 @@ POST {{baseUrl}}/api/users/signup
 Content-Type: {{contentType}} 
 
 {
+    "email": "restuser@gmail.com",
     "username": "restuser",
     "password": "restpassword"
 }
@@ -38,7 +39,7 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/api/listings
 
 ###
-GET {{baseUrl}}/api/listings/1
+GET {{baseUrl}}/api/listings/2
 
 ###
 GET {{baseUrl}}/api/listings/categories
@@ -62,5 +63,8 @@ Authorization: Bearer {{token}}
 }
 
 ###
-DELETE {{baseUrl}}/api/listings/2
+GET {{baseUrl}}/api/users/{{userId}}/listings
 Authorization: Bearer {{token}}
+
+###
+DELETE {{baseUrl}}/api/listings/1
