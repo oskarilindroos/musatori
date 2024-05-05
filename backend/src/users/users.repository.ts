@@ -25,7 +25,7 @@ const updateUser = async (userId: string, updatedUser: UpdatedUser) => {
 const getAllUsers = async () => {
   return await db
     .selectFrom("users")
-    .select(["id", "username", "admin", "created_at"])
+    .select(["id", "email", "username", "admin", "created_at"])
     .execute();
 };
 
@@ -33,7 +33,7 @@ const getUserById = async (userId: string) => {
   return await db
     .selectFrom("users")
     .where("id", "=", userId)
-    .select(["id", "username", "admin", "created_at"])
+    .select(["id", "email", "username", "admin", "created_at"])
     .executeTakeFirst();
 };
 
@@ -41,7 +41,7 @@ const getUserByUsername = async (username: string) => {
   return await db
     .selectFrom("users")
     .where("username", "=", username)
-    .select(["id", "username", "admin", "password", "created_at"])
+    .select(["id", "email", "username", "admin", "password", "created_at"])
     .executeTakeFirst();
 };
 
