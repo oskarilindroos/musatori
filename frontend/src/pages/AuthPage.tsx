@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usersService } from "../services/usersService";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 

@@ -9,7 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import { PianoOutlined } from "@mui/icons-material";
 import { useState, MouseEvent, useContext, Fragment } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 

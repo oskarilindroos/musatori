@@ -15,7 +15,7 @@ export const UserContext = createContext<IUserContext>({
   logout: () => {},
 });
 
-const UserProvider = ({ children }: { children: React.ReactNode }) => {
+const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>({
     isLoggedIn: false,
     isAdmin: false,
@@ -49,4 +49,4 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default UserProvider;
+export default UserContextProvider;
