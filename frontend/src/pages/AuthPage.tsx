@@ -24,7 +24,6 @@ const AuthPage = () => {
   } = useForm<Inputs>();
 
   const handleLogin = async (username: string, password: string) => {
-    console.log(username, password);
     const result = await usersService.login(username, password);
 
     // If the result is a string, it's an error message
