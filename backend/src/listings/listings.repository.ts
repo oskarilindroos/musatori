@@ -90,6 +90,7 @@ const getListingById = async (listingId: number) => {
       "listings_types.type",
       "users.id as user_id",
       "users.username",
+      "users.email",
       "listings.created_at",
     ])
     .where("listings.id", "=", listingId)

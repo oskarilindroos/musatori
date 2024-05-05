@@ -1,13 +1,11 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 import UserContextProvider from "./contexts/UserContextProvider";
 import AuthPage from "./pages/AuthPage";
 import ListingsPage from "./pages/ListingsPage";
-import { checkHealth } from "./services/checkHealth";
 import { musatoriTheme } from "./themes/musatoriTheme";
+import ListingDetailsPage from "./pages/ListingDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/listings/:id",
-        element: <h1>/listings/:id</h1>,
+        element: <ListingDetailsPage />,
       },
       {
         path: "/auth",
@@ -40,19 +38,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // Check the health of the API
-  const { isPending, isError, error } = useQuery({
-    queryKey: ["apiHealth"],
-    queryFn: checkHealth,
-  });
-
   return (
     <ThemeProvider theme={musatoriTheme}>
       <UserContextProvider>
         <RouterProvider router={router} />
         <CssBaseline />
-        {isError && toast.error(error.message)}
-        {isPending && toast.loading("Testing connection to server...")}
       </UserContextProvider>
     </ThemeProvider>
   );

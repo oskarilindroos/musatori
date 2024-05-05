@@ -13,18 +13,21 @@ export const seedTestData = async () => {
     .values([
       {
         id: user1Id,
+        email: "user1@gmail.com",
         username: "user1",
         password: "password1",
         admin: 0,
       },
       {
         id: user2Id,
+        email: "user2@gmail.com",
         username: "user2",
         password: "password2",
         admin: 0,
       },
       {
         id: adminId,
+        email: "admin@gmail.com",
         username: "admin",
         password: "admin",
         admin: 1,

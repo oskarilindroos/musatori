@@ -41,7 +41,7 @@ const updateUser = async (userId: string, updatedUser: UpdatedUser) => {
   }
 };
 
-const signup = async (username: string, password: string) => {
+const signup = async (username: string, email: string, password: string) => {
   // Check if username is already in use
   try {
     const user = await usersRepository.getUserByUsername(username);
@@ -67,6 +67,7 @@ const signup = async (username: string, password: string) => {
   try {
     const createdUser = await usersRepository.createUser({
       id,
+      email,
       username,
       password: hashedPassword,
     });
@@ -91,6 +92,7 @@ const login = async (username: string, password: string) => {
 
     const jwtUser: JwtUser = {
       id: user.id,
+      email: user.email,
       username: user.username,
       admin: user.admin || 0,
     };
