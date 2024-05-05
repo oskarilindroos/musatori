@@ -38,6 +38,20 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getUserListings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const listings = await usersService.getUserListings(req.params.userId);
+
+    res.json(listings);
+  } catch (error: unknown) {
+    return next(error);
+  }
+};
+
 const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newUser = await usersService.signup(
@@ -69,6 +83,7 @@ export const usersController = {
   getAllUsers,
   getUserById,
   updateUser,
+  getUserListings,
   signup,
   login,
 };

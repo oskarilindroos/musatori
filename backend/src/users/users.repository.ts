@@ -45,6 +45,14 @@ const getUserByUsername = async (username: string) => {
     .executeTakeFirst();
 };
 
+const getUserListings = async (userId: string) => {
+  return await db
+    .selectFrom("listings")
+    .where("user_id", "=", userId)
+    .selectAll()
+    .execute();
+};
+
 export const usersRepository = {
   createUser,
   deleteUser,
@@ -52,4 +60,5 @@ export const usersRepository = {
   getAllUsers,
   getUserByUsername,
   getUserById,
+  getUserListings,
 };
