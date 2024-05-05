@@ -2,26 +2,22 @@ import { AuthUser } from "../types/users";
 import { createContext, useState } from "react";
 import { IUserContext } from "../types/users";
 
-export const UserContext = createContext<IUserContext>({
-  user: {
-    isLoggedIn: false,
-    isAdmin: false,
-    userId: "",
-    userName: "",
-    token: "",
-  },
-  setUser: () => {},
-  login: () => {},
-  logout: () => {},
-});
-
+// The initial user object
 const initialUser: AuthUser = {
   isLoggedIn: false,
   isAdmin: false,
+  email: "",
   userId: "",
   userName: "",
   token: "",
 };
+
+export const UserContext = createContext<IUserContext>({
+  user: initialUser,
+  setUser: () => {},
+  login: () => {},
+  logout: () => {},
+});
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser>(initialUser);
