@@ -44,7 +44,7 @@ const AuthPage = () => {
 
     // If the result is a string, it's an error message
     if (typeof result === "string") {
-      toast.error(`Server error: ${result}`);
+      toast.error(result);
       return;
     }
 
