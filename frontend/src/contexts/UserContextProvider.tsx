@@ -15,14 +15,16 @@ export const UserContext = createContext<IUserContext>({
   logout: () => {},
 });
 
+const initialUser: AuthUser = {
+  isLoggedIn: false,
+  isAdmin: false,
+  userId: "",
+  userName: "",
+  token: "",
+};
+
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<AuthUser | null>({
-    isLoggedIn: false,
-    isAdmin: false,
-    userId: "",
-    userName: "",
-    token: "",
-  });
+  const [user, setUser] = useState<AuthUser | null>(initialUser);
 
   const login = (user: AuthUser) => {
     setUser(user);
@@ -31,13 +33,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
-    setUser({
-      isLoggedIn: false,
-      isAdmin: false,
-      userId: "",
-      userName: "",
-      token: "",
-    });
+    setUser(initialUser);
 
     localStorage.removeItem("token");
   };
