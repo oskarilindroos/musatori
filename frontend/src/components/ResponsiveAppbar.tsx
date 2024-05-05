@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { PianoOutlined } from "@mui/icons-material";
 import { useState, MouseEvent, useContext, Fragment } from "react";
 import { UserContext } from "../contexts/UserContextProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const ResponsiveAppBar = () => {
@@ -55,21 +55,23 @@ const ResponsiveAppBar = () => {
           <Toolbar disableGutters>
             <Box display="flex" alignItems="center" flexGrow={1}>
               <PianoOutlined fontSize="large" />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                padding={2}
-                sx={{
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                }}
-              >
-                Musatori
-              </Typography>
+              <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  padding={2}
+                  sx={{
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                    color: "inherit",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                  }}
+                >
+                  Musatori
+                </Typography>
+              </Link>
             </Box>
             <Box>
               <Typography variant="body1">
