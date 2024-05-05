@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usersService } from "../services/usersService";
 import { UserContext } from "../contexts/UserContextProvider";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 type Inputs = {
+  email: string;
   username: string;
   password: string;
 };
@@ -23,6 +24,7 @@ const AuthPage = () => {
   } = useForm<Inputs>();
 
   const handleLogin = async (username: string, password: string) => {
+    console.log(username, password);
     const result = await usersService.login(username, password);
 
     // If the result is a string, it's an error message
@@ -39,8 +41,12 @@ const AuthPage = () => {
     toast.success("Logged in");
   };
 
-  const handleSignup = async (username: string, password: string) => {
-    const result = await usersService.signUp(username, password);
+  const handleSignup = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    const result = await usersService.signUp(username, email, password);
 
     // If the result is a string, it's an error message
     if (typeof result === "string") {
@@ -51,14 +57,15 @@ const AuthPage = () => {
     toast.success("Signed up successfully.");
 
     // Log in the user after signing up
-    handleLogin(username, password);
+    setIsLogin(true);
+    // handleLogin(username, password);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
+  const onSubmit: SubmitHandler<Inputs> = ({ email, username, password }) => {
     if (isLogin) {
       handleLogin(username, password);
     } else {
-      handleSignup(username, password);
+      handleSignup(email, username, password);
     }
   };
 
@@ -85,6 +92,21 @@ const AuthPage = () => {
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display="flex" flexDirection="column" gap={2}>
+            {!isLogin && (
+              <Fragment>
+                <TextField
+                  variant="outlined"
+                  type="text"
+                  placeholder="Email"
+                  required
+                  {...register("email")}
+                />
+                <Typography variant="caption" color="error">
+                  {errors.username?.message}
+                </Typography>
+              </Fragment>
+            )}
+
             <TextField
               variant="outlined"
               type="text"
