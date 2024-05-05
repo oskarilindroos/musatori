@@ -1,7 +1,10 @@
 import axios from "axios";
 import { AuthUser, User } from "../types/users";
 
-const signUp = async (username: string, password: string) => {
+const signUp = async (
+  username: string,
+  password: string,
+): Promise<string | User> => {
   try {
     const response = await axios.post("/api/users/signup", {
       username,
@@ -12,12 +15,18 @@ const signUp = async (username: string, password: string) => {
 
     return createdUser;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to sign up.");
+    if (axios.isAxiosError(error)) {
+      return error.response?.data.message;
+    } else {
+      return "Failed to sign up.";
+    }
   }
 };
 
-const login = async (username: string, password: string) => {
+const login = async (
+  username: string,
+  password: string,
+): Promise<AuthUser | string> => {
   try {
     const response = await axios.post("/api/users/login", {
       username,
@@ -37,12 +46,15 @@ const login = async (username: string, password: string) => {
 
     return authUser;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to sign in.");
+    if (axios.isAxiosError(error)) {
+      return error.response?.data.message;
+    } else {
+      return "Failed to sign up.";
+    }
   }
 };
 
-const getAllUsers = async (token: string) => {
+const getAllUsers = async (token: string): Promise<User[] | string> => {
   try {
     const response = await axios.get("/api/users", {
       headers: {
@@ -52,12 +64,18 @@ const getAllUsers = async (token: string) => {
     const users: User[] = response.data;
     return users;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch users.");
+    if (axios.isAxiosError(error)) {
+      return error.response?.data.message;
+    } else {
+      return "Failed to fetch users.";
+    }
   }
 };
 
-const getUserById = async (id: string, token: string) => {
+const getUserById = async (
+  id: string,
+  token: string,
+): Promise<User | string> => {
   try {
     const response = await axios.get(`/api/users/${id}`, {
       headers: {
@@ -67,8 +85,11 @@ const getUserById = async (id: string, token: string) => {
     const user: User = response.data;
     return user;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch user.");
+    if (axios.isAxiosError(error)) {
+      return error.response?.data.message;
+    } else {
+      return "Failed to fetch user.";
+    }
   }
 };
 
