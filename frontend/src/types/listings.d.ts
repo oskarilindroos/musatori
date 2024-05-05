@@ -12,6 +12,17 @@ export interface Listing {
   image_url: string;
 }
 
+export interface ListingCategory {
+  id: number;
+  category: string;
+  description: string;
+}
+
+export interface ListingType {
+  id: number;
+  type: string;
+}
+
 export interface NewListing {
   title: string;
   description: string;
@@ -20,6 +31,7 @@ export interface NewListing {
   listing_type_id: number;
   listing_category_id: number;
   imageUrls: string[];
+  token: string;
 }
 
 export interface ListingDetails {
