@@ -1,0 +1,70 @@
+@baseUrl = https://musatori-backend.onrender.com
+@token = {{login.response.body.token}}
+@userId = {{login.response.body.user.id}}
+@contentType = application/json
+
+###
+GET {{baseUrl}}/api/health
+
+###
+# @name signup
+POST {{baseUrl}}/api/users/signup
+Content-Type: {{contentType}} 
+
+{
+    "email": "restuser@gmail.com",
+    "username": "restuser",
+    "password": "restpassword"
+}
+
+###
+# @name login
+POST {{baseUrl}}/api/users/login
+Content-Type: {{contentType}}
+
+{
+    "username": "restuser",
+    "password": "restpassword"
+}
+
+###
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/api/users/{{userId}}
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/api/listings
+
+###
+GET {{baseUrl}}/api/listings/2
+
+###
+GET {{baseUrl}}/api/listings/categories
+
+###
+GET {{baseUrl}}/api/listings/types
+
+###
+POST {{baseUrl}}/api/listings
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "title": "Novation Peak",
+    "description": "Selling used Novation Peak. Great condition.",
+    "location": "Tampere",
+    "price": 25.5, 
+    "listing_type_id": 1,
+    "listing_category_id": 1,
+     "imageUrls": ["https://www.soundsauca.com/wp-content/uploads/2021/06/novation-peak-closeup.jpg"]
+}
+
+###
+GET {{baseUrl}}/api/users/{{userId}}/listings
+Authorization: Bearer {{token}}
+
+###
+DELETE {{baseUrl}}/api/listings/1
