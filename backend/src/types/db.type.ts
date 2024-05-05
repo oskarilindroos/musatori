@@ -10,6 +10,7 @@ export interface Database {
 
 export interface UsersTable {
   id: string;
+  email: string;
   username: string;
   password: string;
   admin: number | null;
