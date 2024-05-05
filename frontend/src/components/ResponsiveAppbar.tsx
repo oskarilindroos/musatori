@@ -34,6 +34,9 @@ const ResponsiveAppBar = () => {
     // Log out the user in the context
     userContext.logout();
 
+    // Redirect to the home page
+    navigate("/");
+
     toast.success("Logged out");
   };
 
@@ -42,6 +45,13 @@ const ResponsiveAppBar = () => {
 
     // Redirect to the user's listings page
     navigate(`/users/${userContext.user.userId}/listings`);
+  };
+
+  const handleNavigeToCreateListing = () => {
+    handleCloseUserMenu();
+
+    // Redirect to the create listing page
+    navigate("/listings/form");
   };
 
   const handleCloseUserMenu = () => {
@@ -103,6 +113,9 @@ const ResponsiveAppBar = () => {
               >
                 <MenuItem divider onClick={handleNavigateToMyListings}>
                   <Typography textAlign="center">My listings</Typography>
+                </MenuItem>
+                <MenuItem divider onClick={handleNavigeToCreateListing}>
+                  <Typography textAlign="center">Create listing</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Logout</Typography>
