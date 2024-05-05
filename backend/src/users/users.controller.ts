@@ -42,6 +42,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newUser = await usersService.signup(
       req.body.username,
+      req.body.email,
       req.body.password,
     );
 
