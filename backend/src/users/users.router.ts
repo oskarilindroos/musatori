@@ -11,5 +11,10 @@ usersRouter.post("/login", validate(loginSchema), usersController.login);
 usersRouter.get("/", verifyToken, usersController.getAllUsers);
 usersRouter.get("/:userId", verifyToken, usersController.getUserById);
 usersRouter.patch("/:userId", verifyToken, usersController.updateUser);
+usersRouter.get(
+  "/:userId/listings",
+  verifyToken,
+  usersController.getUserListings,
+);
 
 export { usersRouter };
