@@ -9,8 +9,8 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import { PianoOutlined } from "@mui/icons-material";
 import { useState, MouseEvent, useContext, Fragment } from "react";
-import { UserContext } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContextProvider";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const ResponsiveAppBar = () => {
@@ -34,7 +34,7 @@ const ResponsiveAppBar = () => {
     // Log out the user in the context
     userContext.logout();
 
-    toast.success("Logged out successfully.");
+    toast.success("Logged out");
   };
 
   const handleNavigateToMyListings = () => {
@@ -55,23 +55,30 @@ const ResponsiveAppBar = () => {
           <Toolbar disableGutters>
             <Box display="flex" alignItems="center" flexGrow={1}>
               <PianoOutlined fontSize="large" />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                padding={2}
-                sx={{
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                }}
-              >
-                Musatori
+              <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  padding={2}
+                  sx={{
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                    color: "inherit",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                  }}
+                >
+                  Musatori
+                </Typography>
+              </Link>
+            </Box>
+            <Box>
+              <Typography variant="body1">
+                {userContext.user.userName}
               </Typography>
             </Box>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0 }} pl={2}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   sx={{ border: 2, borderColor: "black" }}
@@ -94,7 +101,7 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleNavigateToMyListings}>
+                <MenuItem divider onClick={handleNavigateToMyListings}>
                   <Typography textAlign="center">My listings</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>

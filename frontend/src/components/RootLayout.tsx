@@ -8,7 +8,7 @@ const RootLayout = () => {
     <main>
       <ResponsiveAppBar />
       <Toaster
-        position="top-left"
+        position="top-center"
         toastOptions={{
           duration: 5000,
           style: {

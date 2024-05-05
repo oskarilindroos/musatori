@@ -28,7 +28,7 @@ export interface AuthUser {
 }
 
 export interface IUserContext {
-  user: UserContext;
+  user: AuthUser;
   setUser: Dispatch<SetStateAction<User>>;
   login: (user: AuthUser) => void;
   logout: () => void;

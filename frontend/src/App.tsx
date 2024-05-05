@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
-import UserProvider from "./contexts/UserContext";
+import UserContextProvider from "./contexts/UserContextProvider";
 import AuthPage from "./pages/AuthPage";
 import ListingsPage from "./pages/ListingsPage";
 import { checkHealth } from "./services/checkHealth";
@@ -48,12 +48,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={musatoriTheme}>
-      <UserProvider>
+      <UserContextProvider>
         <RouterProvider router={router} />
         <CssBaseline />
         {isError && toast.error(error.message)}
         {isPending && toast.loading("Testing connection to server...")}
-      </UserProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 };

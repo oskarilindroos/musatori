@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usersService } from "../services/usersService";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -23,36 +23,35 @@ const AuthPage = () => {
   } = useForm<Inputs>();
 
   const handleLogin = async (username: string, password: string) => {
-    try {
-      const user = await usersService.login(username, password);
+    const result = await usersService.login(username, password);
 
-      // Set the user in the context
-      userContext.login(user);
-
-      // Redirect to the home page
-      navigate("/");
-
-      toast.success("Logged in successfully.");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to log in.");
+    // If the result is a string, it's an error message
+    if (typeof result === "string") {
+      toast.error(result);
+      return;
     }
+    // Set the user in the context
+    userContext.login(result);
+
+    // Redirect to the home page
+    navigate("/");
+
+    toast.success("Logged in");
   };
 
   const handleSignup = async (username: string, password: string) => {
-    try {
-      const response = await usersService.signUp(username, password);
-      console.log(response);
+    const result = await usersService.signUp(username, password);
 
-      toast.success("Signed up successfully.");
-
-      // Automatically log in the user after signing up
-      // handleLogin(username, password);
-    } catch (error) {
-      console.error(error);
-
-      toast.error("Failed to sign up: " + error);
+    // If the result is a string, it's an error message
+    if (typeof result === "string") {
+      toast.error(result);
+      return;
     }
+
+    toast.success("Signed up successfully.");
+
+    // Log in the user after signing up
+    handleLogin(username, password);
   };
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
