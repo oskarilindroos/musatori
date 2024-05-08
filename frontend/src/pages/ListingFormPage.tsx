@@ -1,4 +1,8 @@
-import { RemoveCircleOutline } from "@mui/icons-material";
+import {
+  AddLocation,
+  AddOutlined,
+  RemoveCircleOutline,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -221,8 +225,13 @@ const ListingFormPage = () => {
           </Typography>
 
           <Box display="flex" flexDirection="row" gap={2}>
-            <Button variant="contained" onClick={() => append({ url: "" })}>
-              Add image
+            <Button
+              startIcon={<AddOutlined color="success" />}
+              variant="text"
+              sx={{ color: "black" }}
+              onClick={() => append({ url: "" })}
+            >
+              Add another image
             </Button>
             <Button color="success" type="submit" variant="contained">
               {isNewListing ? "Post Listing" : "Update Listing"}

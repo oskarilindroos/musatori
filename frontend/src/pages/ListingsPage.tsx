@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import ListingCard from "../components/ListingCard";
 import { listingsService } from "../services/listingsService";
